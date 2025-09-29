@@ -16,10 +16,10 @@ device = t.device('cuda:3' if t.cuda.is_available() else 'cpu')
 
 
 
-class HGDM(nn.Module):
+class HGCLD(nn.Module):
     def __init__(self, data_handler):
-        super(HGDM, self).__init__()
-        # ===== 新增：数据集与行为映射 =====
+        super(HGCLD, self).__init__()
+        
         self.behavior_map = {
             'ijcai_15': ['fav', 'click', 'cart'],
             'retail_rocket': ['view', 'cart'],
@@ -189,6 +189,13 @@ class HGDM(nn.Module):
                 h_item,
                 poss
             )
+
+            diffused_behavior_embeddings[behavior] = (
+                diff_usrEmbeds,  
+                diff_itemEmbeds  
+            )
+
+            
             usrEmbeds += diff_usrEmbeds
             itmEmbeds += diff_itemEmbeds
             total_diff_loss += (u_diff_loss.mean() + i_diff_loss.mean())
@@ -221,15 +228,17 @@ class HGDM(nn.Module):
         behavior_pairs = list(combinations(selected_behaviors, 2))
 
         for (b1, b2) in behavior_pairs:
+            if b1 in diffused_behavior_embeddings and b2 in diffused_behavior_embeddings:
+                u1 = diffused_behavior_embeddings[b1][0][ancs]  
+                u2 = diffused_behavior_embeddings[b2][0][ancs]
+                contrast_loss += self.info_nce_loss(u1, u2)
 
-            u1 = self.heter_emb_dict[b1][0][ancs]
-            u2 = self.heter_emb_dict[b2][0][ancs]
-            contrast_loss += self.info_nce_loss(u1, u2)
+               
+                i1 = diffused_behavior_embeddings[b1][1][poss]  
+                i2 = diffused_behavior_embeddings[b2][1][poss]
+                contrast_loss += self.info_nce_loss(i1, i2)
 
-
-            i1 = self.heter_emb_dict[b1][1][poss]
-            i2 = self.heter_emb_dict[b2][1][poss]
-            contrast_loss += self.info_nce_loss(i1, i2)
+            
 
         if len(behavior_pairs) > 0:
             contrast_loss /= len(behavior_pairs) * 2
