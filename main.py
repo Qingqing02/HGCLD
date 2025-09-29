@@ -2,7 +2,7 @@ import torch
 import Utils.TimeLogger as logger
 from Utils.TimeLogger import log
 from params import args
-from Model import HGDM
+from Model import HGCLD
 from DataHandler import DataHandler
 import numpy as np
 import pickle
@@ -101,7 +101,7 @@ class Coach:
 
     def prepareModel(self):
       
-        self.model = HGDM(self.handler).to(device)
+        self.model = HGCLD(self.handler).to(device)
 
         self.opt = torch.optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=0)
 
