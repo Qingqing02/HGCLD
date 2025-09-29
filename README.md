@@ -22,7 +22,7 @@ We develop our codes in the following environment:
 
 ## 🚀 How to run the codes
 
-In order to reproduce the results of HGCLD model on the datasets,you can kindly run the following command on Retail Rocket datasets for an instance.Before run the codes,you need to create the History and Models folders, and then create a retail_rocket folder in each of these two folders. The command lines to train HGCLD on the Retail Rocket datasets are as below. The un-specified hyperparameters in the commands are set as default.
+In order to reproduce the results of HGCLD model on the datasets,you can kindly run the following command on Retail Rocket datasets for an instance.Before run the codes,you need to create the History and Models folders, and then create a retail_rocket folder in each of these two folders.The command lines to train HGCLD on the Retail Rocket datasets are as below, The un-specified hyperparameters in the commands are set as default.
 
 - Retail Rocket 
 
