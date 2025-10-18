@@ -2,6 +2,11 @@
 ## HGCLD
  Hierarchical Graph Contrastive Learning architecture with Diffusion-enhanced for multi-behavior
 recommendation
+
+## 🚀 Abstract
+
+Multi-behavior recommendation (leverages user-item interaction data across multiple behaviors to gain a deeper understanding of user preferences and enhance recommendation performance.) This paper presents a Hierarchical Graph Contrastive Learning architecture with Diffusionenhanced (HGCLD) for multi-behavior recommendation. Specifically, our HGCLD first designs a hierarchical behavior-aware graph diffusion model with a cross-type semantic transition strategy for constructing hierarchical contrastive views. In essence, each auxiliary behavior is individually transformed into target semantic spaces through diffusion models for generating contrastive views. This process not only enhances the alignment between auxiliary behavior features and target semantic spaces but also effectively prevents the propagation of auxiliary behavior-specific noise to other auxiliary behavior embeddings. The hierarchical contrastive views then are utilised as anchors to align user behaviour patterns across different contrastive views, optimizing the main objective functions for model parameter updates and thus improving the learning of behavior-aware user representations. We conduct comprehensive experiments on three multi-behavior datasets, demonstrating the effectiveness of HGCLD and its components compared to various state-of-the-art methods.
+
 ## 📝 Environment
 
 We develop our codes in the following environment:
@@ -19,17 +24,6 @@ We develop our codes in the following environment:
 |Retail Rocket            |2174      |  30113  |97381          | View, Cart, Transaction |
 | Tmall            | 31882        | 31232   | 145129        | View, Favorite, Cart, Purchase       |
 | IJCAI       |17435      | 35920 | 799368       |View, Favorite, Cart, Purchase       |
-
-## 🚀 How to run the codes
-
-In order to reproduce the results of HGCLD model on the datasets,you can kindly run the following command on Retail Rocket datasets for an instance.Before run the codes,you need to create the History and Models folders, and then create a retail_rocket folder in each of these two folders.The command lines to train HGCLD on the Retail Rocket datasets are as below, The un-specified hyperparameters in the commands are set as default.
-
-- Retail Rocket 
-
-```python
- python Main.py --data retail_rocket --gcn_layer 3 --contrast_weight 0.1 --steps 200 --batch 2048 --latdim 128 
-
-```
 
 ## 👉 Code Structure
 
